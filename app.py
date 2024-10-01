@@ -4,13 +4,20 @@ import requests
 
 api_key = '96939010abda3f5161695ffe0efa2010'
 
-user_input = input("Enter city: ")
-print(user_input)
 
-weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={user_input}&units=imperial&APPID={api_key}")
 
-print(weather_data.status_code)
-print(weather_data.json())
+
+
+while(1):
+    user_input = input("Enter city: ")
+    weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={user_input}&units=imperial&APPID={api_key}")
+    weather = weather_data.json()['weather'][0]['main']
+    temp = (weather_data.json()['main']['temp'] - 32) * 5 / 9
+    print(user_input)
+    print(f"Weather: {weather}, Temperature in Celsius: {temp:.2f}")
+
+# print(weather_data.status_code)
+# print(weather_data.json())
 
 app = Flask(__name__)
 
